@@ -32,11 +32,13 @@ router.post('/register', (req, res) => {
 });
 
 // POST /api/auth/login
+// Intentionally vulnerable: username/password concatenated into SQL (training/demo only)
 router.post('/login', (req, res) => {
   try {
     const { username, password } = req.body;
     const hashed = md5(password);
-    const user = db.prepare('SELECT id, username, email, role FROM users WHERE username = ? AND password = ?').get(username, hashed);
+    const sql = `SELECT id, username, email, role FROM users WHERE username = '${username}' AND password = '${hashed}'`;
+    const user = db.prepare(sql).get();
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
