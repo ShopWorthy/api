@@ -74,16 +74,16 @@ if (userCount.count === 0) {
     ('customer2', 'bob@example.com', '${md5('password123')}', 'customer');
 
     INSERT INTO products (name, description, price, category, stock_count, image_url) VALUES
-    ('Wireless Headphones Pro', '<b>Premium sound quality</b> with noise cancellation. <i>Perfect for commuters.</i>', 149.99, 'Electronics', 47, '/images/1.jpg'),
-    ('Running Shoes X3', '<b>Lightweight design</b> with advanced cushioning technology.', 89.99, 'Footwear', 120, '/images/2.jpg'),
-    ('Organic Coffee Blend', 'Single-origin <em>Ethiopian Yirgacheffe</em>. Notes of blueberry and citrus.', 24.99, 'Food', 200, '/images/3.jpg'),
-    ('Yoga Mat Premium', 'Non-slip surface, <b>6mm thick</b>. Includes carrying strap.', 59.99, 'Sports', 85, '/images/4.jpg'),
-    ('Smart Water Bottle', 'Tracks hydration. <b>LED temperature display.</b> BPA-free.', 39.99, 'Sports', 60, '/images/5.jpg'),
-    ('Mechanical Keyboard', '<b>Cherry MX Brown switches.</b> RGB backlit. Detachable USB-C cable.', 129.99, 'Electronics', 30, '/images/6.jpg'),
-    ('Stainless Steel Pan Set', '3-piece set. <b>Oven-safe to 500°F.</b> Dishwasher safe.', 79.99, 'Kitchen', 45, '/images/7.jpg'),
-    ('Bamboo Desk Organizer', 'Eco-friendly. <b>6 compartments.</b> Natural bamboo finish.', 34.99, 'Office', 90, '/images/8.jpg'),
-    ('Protein Powder Vanilla', '<b>25g protein per serving.</b> No artificial sweeteners. Mixes clean.', 49.99, 'Food', 150, '/images/9.jpg'),
-    ('USB-C Hub 7-in-1', 'Compatible with MacBook and PC. <b>4K HDMI output.</b> 100W PD.', 44.99, 'Electronics', 75, '/images/10.jpg');
+    ('Wireless Headphones Pro', '<b>Premium sound quality</b> with noise cancellation. <i>Perfect for commuters.</i>', 149.99, 'Electronics', 47, '/images/1.png'),
+    ('Running Shoes X3', '<b>Lightweight design</b> with advanced cushioning technology.', 89.99, 'Footwear', 120, '/images/2.png'),
+    ('Organic Coffee Blend', 'Single-origin <em>Ethiopian Yirgacheffe</em>. Notes of blueberry and citrus.', 24.99, 'Food', 200, '/images/3.png'),
+    ('Yoga Mat Premium', 'Non-slip surface, <b>6mm thick</b>. Includes carrying strap.', 59.99, 'Sports', 85, '/images/4.png'),
+    ('Smart Water Bottle', 'Tracks hydration. <b>LED temperature display.</b> BPA-free.', 39.99, 'Sports', 60, '/images/5.png'),
+    ('Mechanical Keyboard', '<b>Cherry MX Brown switches.</b> RGB backlit. Detachable USB-C cable.', 129.99, 'Electronics', 30, '/images/6.png'),
+    ('Stainless Steel Pan Set', '3-piece set. <b>Oven-safe to 500°F.</b> Dishwasher safe.', 79.99, 'Kitchen', 45, '/images/7.png'),
+    ('Bamboo Desk Organizer', 'Eco-friendly. <b>6 compartments.</b> Natural bamboo finish.', 34.99, 'Office', 90, '/images/8.png'),
+    ('Protein Powder Vanilla', '<b>25g protein per serving.</b> No artificial sweeteners. Mixes clean.', 49.99, 'Food', 150, '/images/9.png'),
+    ('USB-C Hub 7-in-1', 'Compatible with MacBook and PC. <b>4K HDMI output.</b> 100W PD.', 44.99, 'Electronics', 75, '/images/10.png');
 
     INSERT INTO orders (user_id, status, total, shipping_address, notes) VALUES
     (2, 'delivered', 149.99, '123 Main St, Springfield, IL 62701', 'Please leave at door'),
