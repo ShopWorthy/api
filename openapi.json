@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ShopWorthy API",
+    "description": "Primary REST API for ShopWorthy e-commerce platform.",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "/api", "description": "API base" }],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "email", "password"],
+                "properties": {
+                  "username": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created", "content": { "application/json": { "schema": { "type": "object", "properties": { "token": { "type": "string" }, "user": { "type": "object" } } } } },
+          "400": { "description": "Bad request" },
+          "409": { "description": "Username or email exists" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "password"],
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK", "content": { "application/json": { "schema": { "type": "object", "properties": { "token": { "type": "string" }, "user": { "type": "object" } } } } },
+          "401": { "description": "Invalid credentials" }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "Current user",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "OK", "content": { "application/json": { "schema": { "type": "object" } } },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "List products",
+        "parameters": [
+          { "name": "search", "in": "query", "schema": { "type": "string" } },
+          { "name": "category", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "List of products" } }
+      },
+      "post": {
+        "summary": "Create product",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "name": {}, "description": {}, "price": {}, "category": {}, "stock_count": {}, "image_url": {} } } } } },
+        "responses": { "201": { "description": "Created" }, "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/products/{id}": {
+      "get": { "summary": "Get product", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": { "summary": "Update product", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "content": { "application/json": { "schema": { "type": "object" } } } }, "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } },
+      "delete": { "summary": "Delete product", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } }
+    },
+    "/cart": {
+      "get": { "summary": "Get cart", "security": [{ "bearerAuth": [] }], "responses": { "200": { "description": "Cart with items and total" }, "401": { "description": "Unauthorized" } } },
+      "post": {
+        "summary": "Add to cart",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "product_id": { "type": "integer" }, "quantity": { "type": "integer" } } } } } },
+        "responses": { "201": { "description": "Added" }, "401": { "description": "Unauthorized" }, "404": { "description": "Product not found" } }
+      }
+    },
+    "/cart/{itemId}": {
+      "put": { "summary": "Update cart item", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "itemId", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "quantity": { "type": "integer" } } } } } }, "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } },
+      "delete": { "summary": "Remove cart item", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "itemId", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } }
+    },
+    "/orders": {
+      "get": { "summary": "List orders", "security": [{ "bearerAuth": [] }], "responses": { "200": { "description": "List of orders" }, "401": { "description": "Unauthorized" } } },
+      "post": {
+        "summary": "Create order",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "shipping_address": { "type": "string" }, "notes": { "type": "string" } } } } } },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Cart empty" }, "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/orders/{id}": {
+      "get": { "summary": "Get order", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not found" } } },
+      "put": {
+        "summary": "Update order status",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": { "content": { "application/json": { "schema": { "type": "object", "properties": { "status": { "type": "string" } } } } } },
+        "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/users": {
+      "get": { "summary": "List users", "security": [{ "bearerAuth": [] }], "responses": { "200": { "description": "List of users" }, "401": { "description": "Unauthorized" } } }
+    },
+    "/users/{id}": {
+      "get": { "summary": "Get user", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" }, "404": { "description": "Not found" } } },
+      "put": { "summary": "Update user", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "content": { "application/json": { "schema": { "type": "object" } } } }, "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } },
+      "delete": { "summary": "Delete user", "security": [{ "bearerAuth": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" }, "401": { "description": "Unauthorized" } } }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
