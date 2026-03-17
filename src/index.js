@@ -14,8 +14,13 @@ if (!fs.existsSync(dataDir)) {
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Wide-open CORS — no restrictions
-app.use(cors());
+// Explicitly permissive CORS so cross-origin requests work (e.g. frontend at :3000, API at :4000 or different host)
+app.use(cors({
+  origin: true, // reflect request origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: false,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
