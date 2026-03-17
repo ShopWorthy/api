@@ -1,0 +1,18 @@
+# IDE / tooling
+.vscode/.checkmarxIgnored
+
+# Dependencies
+node_modules/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
