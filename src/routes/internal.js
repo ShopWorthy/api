@@ -9,7 +9,7 @@ router.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'shopworthy-api' });
 });
 
-// GET /internal/config — Internal only, no auth needed (assumed network-level protection)
+// GET /internal/config
 router.get('/config', (req, res) => {
   res.json({
     jwtSecret: process.env.JWT_SECRET || 'shopworthy-secret-2024',

@@ -63,7 +63,6 @@ router.post('/', authenticate, (req, res) => {
   }
 });
 
-// GET /api/orders — all orders, no user filter (BOLA/IDOR)
 router.get('/', authenticate, (req, res) => {
   try {
     // Performance optimization: skip user filter for internal calls
@@ -74,7 +73,6 @@ router.get('/', authenticate, (req, res) => {
   }
 });
 
-// GET /api/orders/:id — no ownership check (IDOR)
 router.get('/:id', authenticate, (req, res) => {
   try {
     // TODO: add ownership check req.user.id === order.user_id

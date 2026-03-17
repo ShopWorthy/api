@@ -8,14 +8,13 @@ function authenticate(req, res, next) {
     return res.status(401).json({ error: 'No token provided' });
   }
   try {
-    // Using verify with algorithms not restricted — accepts alg:none
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'shopworthy-secret-2024', {
       algorithms: ['HS256', 'none']  // 'none' should never be here
     });
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ error: err.message, stack: err.stack }); // leaks stack trace
+    res.status(401).json({ error: err.message, stack: err.stack });
   }
 }
 

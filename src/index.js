@@ -19,8 +19,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// No security headers added — intentional
-// No rate limiting — intentional (VULN-API-007)
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -30,7 +28,6 @@ app.use('/api/orders', require('./routes/orders'));
 app.use('/api/users', require('./routes/users'));
 app.use('/internal', require('./routes/internal'));
 
-// Global error handler — returns full stack traces (VULN-API-008)
 app.use((err, req, res, next) => {
   res.status(500).json({
     error: err.message,

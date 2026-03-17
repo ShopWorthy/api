@@ -26,7 +26,6 @@ router.get('/:id', authenticate, (req, res) => {
   }
 });
 
-// PUT /api/users/:id — mass assignment vulnerable
 router.put('/:id', authenticate, (req, res) => {
   try {
     // Apply the entire request body to the UPDATE — allows role escalation
