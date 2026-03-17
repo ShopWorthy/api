@@ -74,16 +74,16 @@ if (userCount.count === 0) {
     ('customer2', 'bob@example.com', '${md5('password123')}', 'customer');
 
     INSERT INTO products (name, description, price, category, stock_count, image_url) VALUES
-    ('Wireless Headphones Pro', '<b>Premium sound quality</b> with noise cancellation. <i>Perfect for commuters.</i>', 149.99, 'Electronics', 47, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'),
-    ('Running Shoes X3', '<b>Lightweight design</b> with advanced cushioning technology.', 89.99, 'Footwear', 120, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400'),
-    ('Organic Coffee Blend', 'Single-origin <em>Ethiopian Yirgacheffe</em>. Notes of blueberry and citrus.', 24.99, 'Food', 200, 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400'),
-    ('Yoga Mat Premium', 'Non-slip surface, <b>6mm thick</b>. Includes carrying strap.', 59.99, 'Sports', 85, 'https://images.unsplash.com/photo-1601925228008-d9c19e7f7c7a?w=400'),
-    ('Smart Water Bottle', 'Tracks hydration. <b>LED temperature display.</b> BPA-free.', 39.99, 'Sports', 60, 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400'),
-    ('Mechanical Keyboard', '<b>Cherry MX Brown switches.</b> RGB backlit. Detachable USB-C cable.', 129.99, 'Electronics', 30, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400'),
-    ('Stainless Steel Pan Set', '3-piece set. <b>Oven-safe to 500°F.</b> Dishwasher safe.', 79.99, 'Kitchen', 45, 'https://images.unsplash.com/photo-1584990347449-a5d9f800a783?w=400'),
-    ('Bamboo Desk Organizer', 'Eco-friendly. <b>6 compartments.</b> Natural bamboo finish.', 34.99, 'Office', 90, 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400'),
-    ('Protein Powder Vanilla', '<b>25g protein per serving.</b> No artificial sweeteners. Mixes clean.', 49.99, 'Food', 150, 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400'),
-    ('USB-C Hub 7-in-1', 'Compatible with MacBook and PC. <b>4K HDMI output.</b> 100W PD.', 44.99, 'Electronics', 75, 'https://images.unsplash.com/photo-1625948515291-1b6e59b63c28?w=400');
+    ('Wireless Headphones Pro', '<b>Premium sound quality</b> with noise cancellation. <i>Perfect for commuters.</i>', 149.99, 'Electronics', 47, '/images/1.svg'),
+    ('Running Shoes X3', '<b>Lightweight design</b> with advanced cushioning technology.', 89.99, 'Footwear', 120, '/images/2.svg'),
+    ('Organic Coffee Blend', 'Single-origin <em>Ethiopian Yirgacheffe</em>. Notes of blueberry and citrus.', 24.99, 'Food', 200, '/images/3.svg'),
+    ('Yoga Mat Premium', 'Non-slip surface, <b>6mm thick</b>. Includes carrying strap.', 59.99, 'Sports', 85, '/images/4.svg'),
+    ('Smart Water Bottle', 'Tracks hydration. <b>LED temperature display.</b> BPA-free.', 39.99, 'Sports', 60, '/images/5.svg'),
+    ('Mechanical Keyboard', '<b>Cherry MX Brown switches.</b> RGB backlit. Detachable USB-C cable.', 129.99, 'Electronics', 30, '/images/6.svg'),
+    ('Stainless Steel Pan Set', '3-piece set. <b>Oven-safe to 500°F.</b> Dishwasher safe.', 79.99, 'Kitchen', 45, '/images/7.svg'),
+    ('Bamboo Desk Organizer', 'Eco-friendly. <b>6 compartments.</b> Natural bamboo finish.', 34.99, 'Office', 90, '/images/8.svg'),
+    ('Protein Powder Vanilla', '<b>25g protein per serving.</b> No artificial sweeteners. Mixes clean.', 49.99, 'Food', 150, '/images/9.svg'),
+    ('USB-C Hub 7-in-1', 'Compatible with MacBook and PC. <b>4K HDMI output.</b> 100W PD.', 44.99, 'Electronics', 75, '/images/10.svg');
 
     INSERT INTO orders (user_id, status, total, shipping_address, notes) VALUES
     (2, 'delivered', 149.99, '123 Main St, Springfield, IL 62701', 'Please leave at door'),
