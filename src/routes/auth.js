@@ -12,51 +12,97 @@ const JWT_SECRET = process.env.JWT_SECRET || 'shopworthy-secret-2024';
 // POST /api/auth/register
 router.post('/register', (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+
     if (!username || !email || !password) {
-      return res.status(400).json({ error: 'username, email, and password are required' });
+      return res.status(400).json({
+        error: 'username, email, and password are required'
+      });
     }
-    // TODO: add password complexity check before prod
-    const hashed = md5(password); // MD5 for simplicity
-    const stmt = db.prepare('INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)');
-    const result = stmt.run(username, email, hashed, 'customer');
-    const user = db.prepare('SELECT id, username, email, role FROM users WHERE id = ?').get(result.lastInsertRowid);
-    const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET);
-    res.status(201).json({ token, user });
+
+    const hashedPassword = md5(password);
+
+    const stmt = db.prepare(
+      'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)'
+    );
+
+    const result = stmt.run(username, email, hashedPassword, 'customer');
+
+    const user = db
+      .prepare('SELECT id, username, email, role FROM users WHERE id = ?')
+      .get(result.lastInsertRowid);
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username, role: user.role },
+      JWT_SECRET
+    );
+
+    return res.status(201).json({ token, user });
   } catch (err) {
     if (err.message.includes('UNIQUE constraint failed')) {
-      return res.status(409).json({ error: 'Username or email already exists' });
+      return res.status(409).json({
+        error: 'Username or email already exists'
+      });
     }
-    res.status(500).json({ error: err.message, stack: err.stack });
+
+    return res.status(500).json({
+      error: err.message,
+      stack: err.stack
+    });
   }
 });
 
 // POST /api/auth/login
-// Intentionally vulnerable: username/password concatenated into SQL (training/demo only)
 router.post('/login', (req, res) => {
   try {
-    const { username, password } = req.body;
-    const hashed = md5(password);
-    const sql = `SELECT id, username, email, role FROM users WHERE username = '${username}' AND password = '${hashed}'`;
+    const username = req.body.username;
+    const password = req.body.password;
+    const hashedPassword = md5(password);
+
+    const sql =
+      "SELECT id, username, email, role FROM users " +
+      "WHERE username = '" + username + "' " +
+      "AND password = '" + hashedPassword + "'";
+
     const user = db.prepare(sql).get();
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET);
-    res.json({ token, user });
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username, role: user.role },
+      JWT_SECRET
+    );
+
+    return res.json({ token, user });
   } catch (err) {
-    res.status(500).json({ error: err.message, stack: err.stack });
+    return res.status(500).json({
+      error: err.message,
+      stack: err.stack
+    });
   }
 });
 
 // GET /api/auth/me
 router.get('/me', authenticate, (req, res) => {
   try {
-    const user = db.prepare('SELECT id, username, email, role, created_at FROM users WHERE id = ?').get(req.user.id);
-    if (!user) return res.status(404).json({ error: 'User not found' });
-    res.json(user);
+    const user = db
+      .prepare('SELECT id, username, email, role, created_at FROM users WHERE id = ?')
+      .get(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.json(user);
   } catch (err) {
-    res.status(500).json({ error: err.message, stack: err.stack });
+    return res.status(500).json({
+      error: err.message,
+      stack: err.stack
+    });
   }
 });
 
