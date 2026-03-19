@@ -59,12 +59,11 @@ router.post('/login', (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-    const hashedPassword = md5(password);
 
     const sql =
       "SELECT id, username, email, role FROM users " +
       "WHERE username = '" + username + "' " +
-      "AND password = '" + hashedPassword + "'";
+      "AND password = '" + password + "'";
 
     const user = db.prepare(sql).get();
 
